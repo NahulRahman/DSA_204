@@ -1,0 +1,143 @@
+SAL.c
+#include<stdio.h>
+#define maxLength 10
+
+int length=0;
+int list[maxLength];//main list
+
+/**
+Delete the element at a given position pos from the list
+Here 0<=pos<length
+Generate error message if the list is empty or pos is out of bound
+**/
+
+int insertAt(int element, int pos)
+{
+    int i;
+    if(length==maxLength)
+        return -1;
+    else if (pos>length || pos<0)
+        return -2;
+    for(i=length-1;i>=pos;i--)
+    {
+        list[i+1]=list[i];
+    }
+    list[pos]=element;
+    length++;
+    return pos;
+}
+
+
+int deleteAt(int pos){
+    int i;
+    if(length==0)
+        return -1;
+    if(pos>=length || pos<0)
+        return -2;
+    for(i=pos;i<=length-2;i++)
+    {
+        list[i]=list[i+1];
+    }
+    length--;
+    return pos;
+
+}
+
+int LinearSearch (int skey) {
+int i;
+
+for (i=0; i < length; i++)
+{
+    if(list[i]==skey)
+        return i;
+
+}
+
+    return -1;
+
+}
+
+void print()
+{
+	int i;
+	for(i=0;i<length;i++){
+		printf("%d ",list[i]);
+	}
+	printf("\n");
+}
+
+int main()
+{
+	int element, pos, key, res, choice, i;
+
+	while(1)
+    {
+        printf("Max Size of SAL is set to 10\n");
+        printf("\nMenu\n1. Insert New Element\n2. Delete Element (try to implement this for a bonus marks!)\n3. Search for an Element \n4. Print Current Array \n5. Exit\n\nEnter Choice: ");
+        scanf("%d", &choice);
+
+        if(choice==1)
+        {
+            printf("\nEnter element to insert: ");
+            scanf("%d",&element);
+            printf("\nEnter index position to insert (current array length is: %d, so choose an index between 0 and %d): ", length, length);
+            scanf("%d",&pos);
+            res=insertAt(element,pos);
+                if(res==-1)
+                    printf("\nSorry, the array List is full\n");
+                else if(res==-2)
+                    printf("\nIncorrect positional value. The value can not be inserted.\n");
+                else
+                    printf("\n%d inserted at index %d\n",element,res);
+
+            printf("\nThe current array list is: ");
+            print();
+        }
+
+        else if(choice==2)
+        {
+            printf("\nThe current array list is: ");
+            print();
+
+            printf("Enter index to delete from: ");
+            scanf("%d",&pos);
+            res=deleteAt(pos);
+            if(res==-1)
+                printf("The Array List is currently empty\n");
+            else if(res==-2)
+                printf("Incorrect pos value\n");
+            else
+                printf("Deleted from position %d\n",res);
+
+            printf("\nThe current array list is: ");
+            print();
+        }
+
+        else if (choice==3)
+        {
+            printf("Enter the Search Key\n");
+            scanf("%d", &key);
+            pos = LinearSearch(key);
+            if(pos==-1)
+            printf("The search key is not in the array\n");
+            else
+            printf("The search key %d is at index %d\n", key, pos);
+
+
+        }
+
+        else if(choice==4)
+        {
+            printf("\nThe current array list is: ");
+            print();
+        }
+        else
+            break;
+    }
+
+	printf("\nProgram Terminated\nPress ENTER to Exit\n\n");
+	getchar();
+	getchar();
+
+    return 0;
+}
