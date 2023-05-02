@@ -1,0 +1,133 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class Queue
+{
+    int* arr;
+    int Front,Rear;
+    int SIZE,length;
+public:
+    Queue(int n)
+    {
+        arr=new int[n];
+        length=0;
+        SIZE=n;
+        Front=0;
+        Rear=-1;
+    }
+
+    bool isEmpty()
+    {
+        if(Front>Rear)
+        {
+            Front=0;Rear=-1;
+            return true;
+        }
+        return false;
+    }
+    bool isFull()
+    {
+        if(SIZE==length) return true;
+        return false;
+    }
+
+    void enqueue(int p)
+    {
+        if(isFull()) cout<<"\nThe queue is full.\n";
+        else
+        {
+            arr[++Rear]=p;
+            cout<<"\nValue inserted.\n";
+            length++;
+        }
+    }
+
+    void dequeue()
+    {
+        if(isEmpty()) cout<<"\nThe queue is empty.\n";
+        else
+        {
+            cout<<Front<<endl;
+            int* cur=new int;
+            cur=&arr[Front];
+            cout<<Front<<" "<<arr[Front]<<endl;
+            delete cur;
+            Front++;
+            cout<<Front<<" "<<arr[Front]<<endl;
+            cout<<"\nValue deleted.\n";
+            length--;
+        }
+    }
+
+    void displayqueue()
+    {
+        if(isEmpty()) cout<<"\nThe queue is empty.\n";
+        else
+        {
+            cout<<Front;
+            cout<<"\nThe queue is: ";
+            cout<<arr[Front]<<" ";
+            for(int i=Front;i<=Rear;i++)
+            {
+                cout<<arr[i]<<" ";
+            }
+            cout<<"\n\n";
+        }
+    }
+
+    ~Queue()
+    {
+        delete [] arr;
+    }
+
+};
+
+int main()
+{
+    int choice=1;
+    cout<<"Enter the size of the queue: ";
+    int n;cin>>n;
+    Queue s(n);
+    while(choice!=0)
+    {
+        cout<<"0 - Exit."<<endl;
+        cout<<"1 - Insert value."<<endl;
+        cout<<"2 - Delete value."<<endl;
+        cout<<"3 - Display Items (Print QUEUE)."<<endl;
+
+        cout<<"\nEnter your choice: ";
+        cin>>choice;
+
+        switch(choice)
+        {
+        case 0:
+            break;
+
+        case 1:
+
+            cout<<"\nEnter value: ";
+            int p;
+            cin>>p;
+            s.enqueue(p);
+            break;
+
+        case 2:
+            
+            s.dequeue();
+            break;
+
+        case 3:
+
+            s.displayqueue();
+            break;
+
+        default:
+            cout<<"\nAn Invalid choice.\n"<<endl;
+        }
+
+        cout<<endl<<endl;
+    }
+
+
+    return 0;
+}
