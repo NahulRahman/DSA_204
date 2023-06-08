@@ -40,6 +40,7 @@ int main()
             {
                 q.push(i);
                 color[i]=i;
+                cout<<k<<" is parent of "<<i<<endl;
             }
         }
         color[k]=2;
