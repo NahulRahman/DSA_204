@@ -1,0 +1,76 @@
+#include<bits/stdc++.h>
+using namespace std;
+map< string,int > mp;
+map< string,vector<string> > tree;
+map< string,vector<string> >:: iterator ip;
+map<string,string> parent;
+map<string,int> level;
+map<string,bool> vislog;
+vector<string>:: iterator i;
+
+void bfs(string root)
+{
+    queue<string> q;
+    q.push(root);
+    vislog[root]=true;
+    while(!q.empty())
+    {
+        string first=q.front();
+        q.pop();
+        for(ip=tree.begin();ip!=tree.end();++ip)
+        {
+            if(ip->first==first)
+            {
+                vector<string> keep=ip->second;
+                for(i=keep.begin();i!=keep.end();++i)
+                {
+                    string s=*i;
+                    q.push(s);
+                    vislog[s]=true;
+                    level[s]=level[ip->first]+1;
+
+                }
+            }
+        }
+
+    }
+}
+
+int main()
+{
+    int e; cin>>e;
+    string x,y;
+    for(int i=0;i<e;++i)
+    {
+        cin>>x>>y;
+        tree[x].push_back(y);
+        parent[y]=x;
+        level[x]=level[y]=0;
+        mp[x]++;
+        mp[y]++;
+        vislog[x]=vislog[y]=false;
+    }
+    string root="C:";
+    parent[root]="-1";
+    bfs(root);
+    int q; cin>>q;
+    string str;
+    while(q--)
+    {
+        cin>>str;
+        if(mp[str]==0)
+            cout<<"File not found\n-1";
+        else
+        {
+            string res="", hold=str;
+            while(parent[str]!="-1")
+            {
+                res=("\\\\"+str+res);
+                str=parent[str]; //climbing up!
+            }
+            res="C:"+res;
+            cout<<res<<endl<<level[hold]*2<<endl;
+        }
+    }
+
+}
