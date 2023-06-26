@@ -26,7 +26,7 @@ int main() {
   no_edge = 0;
 
   selected[0] = true;
-  int  d = 0;
+
   int x;
   int y;
 
@@ -57,8 +57,7 @@ int main() {
     cout << endl;
     selected[y] = true;
     no_edge++;
-    d=d+ G[x][y];
   }
-    cout<<"total weight "<< d<<endl;
+
   return 0;
 }
